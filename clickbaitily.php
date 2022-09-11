@@ -1,50 +1,11 @@
 <?php
     define( "TITLE", "Honest clickbait headlines" );
+include("functionsily.php");
 
     if(isset($_POST["fix_submit"] ) ) { //means that if the form has been submitted...
-  // grab value from textarea in $_POST collection
-        // make all letters lowercase using strtolower() function
-        // store in a variable
 
-        $clickbait = strtolower($_POST["clickbait_headline"]);
-
-        //store array of clickbait-sounding words or phrases
-
-        $a = array (
-        "scientists",
-        "doctors",
-        "hate",
-        "stupid",
-        "weird",
-        "simple",
-        "trick",
-        "shocked me",
-        "you'll never believe",
-        "hack",
-        "epic",
-        "unbelievable"
-        );
-
-//arrays of replacements
-
-$b = array (
-        "so-called scientists",
-        "so-called doctors",
-        "aren't threatened by",
-        "average",
-        "completely normal",
-        "ineffective",
-        "method",
-        "is no different than the others",
-        "you won't really be surprised by",
-        "slightly improve",
-        "boring",
-        "normal"
-        );
-
-        $honestHeadline = str_replace( $a, $b, $clickbait);
-    } 
-    
+        checkForClickbait();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -86,12 +47,11 @@ $b = array (
        
        if (isset ($_POST["fix_submit"])) {
 
-        echo "<strong class='text-danger'>Original Headline</strong>
-        <h4>".ucwords($clickbait)."</h4><hr>";
+        $clickBait = checkForClickbait()[0];
+        $honestHeadline = checkForClickbait()[1];
 
-
-        echo "<strong class='text-success'>Honest Headline</strong>
-        <h4>".ucwords($honestHeadline)."</h4>";      }
+        displayHonestHeadline($clickBait, $honestHeadline);
+         }
 
         ?>
         
